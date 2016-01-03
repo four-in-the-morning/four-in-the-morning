@@ -84,26 +84,26 @@
 |------------|-------|-----------|-----------|
 | 课程号 | 课程名 | 教学班号 | TA学号|
 
-### 教学班
+### 教学班 `COURSE_CLASS`
 
 | class_id | class_name | teacher_id |
 |---------|----------|----------|
 | 教学班号 | 教学班名 | 教师职工号 |
 
-### 教学班与学生的对应
+### 教学班与学生的对应 `CLASS_COURSE_STUDENT`
 
 | class_id | student_id |
 |---------|-----------|
 | 教学班号 | 学生学号 |
 
 ### 作业
-#### TA 发布的作业
+#### TA 发布的作业 `ADD_HOMEWORK`
 
 | course_id | homework_id | homework_title | homework_description | detail_attach_file | post_date | ddl |
 |-----------|------|------|--------------|------------|-------------|------|
 | 课程号 | 作业号 | 标题 | 作业描述 | 附件 | 发布时间 | DDL|
 
-#### 学生提交的作业
+#### 学生提交的作业 `STUDENT_HOMEWORK`
 
 | course_id | homework_id | student_id |post_date| detail_attach_file | score |
 |-----------|------|------|-------|-------|-------|
