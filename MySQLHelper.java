@@ -41,13 +41,20 @@ public class MySQLHelper {
 	}
 
 	private static boolean update(String sql) {
+		Connection conn = null;
 		try {
-			Connection conn = getConnection();
+			conn = getConnection();
 			Statement stat = conn.createStatement();
 			stat.executeUpdate(sql);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch	(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return false;
 	}
@@ -109,36 +116,24 @@ public class MySQLHelper {
 	public static ArrayList<HomeworkPost> queryDDLHomework(String stuId) {
 		ArrayList<HomeworkPost> homeworkPostList = new ArrayList<HomeworkPost>();
 		try {
-			ArrayList<String> classIdList = new ArrayList<String>();
-			String sql = String.format("SELECT * FROM " + clsStuTable + " WHERE student_id='%s'", stuId);
+			java.util.Date date = new java.util.Date(); // java.util.Date 和 java.sql.Date 重复
+	 		Timestamp timestamp = new Timestamp(date.getTime());
+			String sql = String.format("SELECT * FROM (" 
+				+ "(%s C1 INNER JOIN %s C2 ON C1.class_id = C2.class_id) " 
+				+ "INNER JOIN %s A ON A.course_id = C2.course_id) " 
+				+ "WHERE C1.student_id = '%s' AND A.ddl > '%s'",
+				clsStuTable, courseTable, taPushHomeworkTable, stuId, timestamp.toString());
+			System.out.println("\n" + sql + "\n");
 			ResultSet rs = query(sql);
 			while (rs.next()) {
-				classIdList.add(new String(rs.getString("class_id")));
-			}
-			ArrayList<String> courseIdList = new ArrayList<String>();
-			for (String s : classIdList) {
-				String sql2 = String.format("SELECT * FROM " + courseTable + " WHERE class_id='%s'", s);
-				ResultSet rs2 = query(sql2);
-				while (rs2.next()) {
-					courseIdList.add(new String(rs2.getString("course_id")));
-				}
-			}
-			java.util.Date date = new java.util.Date(); // java.util.Date 和 java.sql.Date 重复
-			Timestamp timestamp = new Timestamp(date.getTime());
-			for (String s : courseIdList) {
-				String sql3 = String.format("SELECT * FROM " + taPushHomeworkTable + " WHERE post_date>'%s'", 
-											timestamp.toString());
-				ResultSet rs3 = query(sql3);
-				while (rs3.next()) {
-					homeworkPostList.add(new HomeworkPost(
-						rs3.getString("course_id"), 
-						rs3.getString("homework_id"), 
-						rs3.getString("homework_title"), 
-						rs3.getString("homework_description"), 
-						rs3.getString("detail_attach_file"), 
-						rs3.getString("post_date"), 
-						rs3.getString("ddl")));
-				}
+				homeworkPostList.add(new HomeworkPost(
+					rs.getString("course_id"), 
+					rs.getString("homework_id"), 
+					rs.getString("homework_title"), 
+					rs.getString("homework_description"), 
+					rs.getString("detail_attach_file"), 
+					rs.getString("post_date"), 
+					rs.getString("ddl")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -196,14 +191,14 @@ public class MySQLHelper {
 	}
 
 	public static class HomeworkPost {
-		String course_id;
-		String homework_id;
-		String homework_title;
-		String homework_description;
-		String detail_attach_file;
-		String post_date;
-		String ddl;
-		HomeworkPost(String _course_id, String _homework_id, String _homework_title,
+		public String course_id;
+		public String homework_id;
+		public String homework_title;
+		public String homework_description;
+		public String detail_attach_file;
+		public String post_date;
+		public String ddl;
+		public HomeworkPost(String _course_id, String _homework_id, String _homework_title,
 					String _homework_description, String _detail_attach_file, String _post_date, String _ddl) {
 			this.course_id = _course_id;
 			this.homework_id = _homework_id;
@@ -216,13 +211,13 @@ public class MySQLHelper {
 	}
 
 	public static class Homework {
-		String course_id;
-		String homework_id;
-		String student_id;
-		String post_date;
-		String detail_attach_file;
-		String score;
-		Homework(String _course_id, String _homework_id, String _student_id, 
+		public String course_id;
+		public String homework_id;
+		public String student_id;
+		public String post_date;
+		public String detail_attach_file;
+		public String score;
+		public Homework(String _course_id, String _homework_id, String _student_id, 
 				String _post_date, String _detail_attach_file, String _score) {
 			this.course_id = _course_id;
 			this.homework_id = _homework_id;
