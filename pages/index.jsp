@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*, FourInTheMorning.MySQLHelper" 
          contentType="text/html; charset=utf-8"%>
-<%request.setCharacterEncoding("utf-8");%> 
+<%request.setCharacterEncoding("utf-8");%>
 <!DOCTYPE html>
 <html>
 	<head>
