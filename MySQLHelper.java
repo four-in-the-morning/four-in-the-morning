@@ -6,11 +6,11 @@ import java.sql.*;
 
 public class MySQLHelper {
 
-	private static final String databaseHostIp = "ap-cdbr-azure-southeast-a.cloudapp.net";
+	private static final String databaseHostIp = "sunshining.cloudapp.net";
 	private static final String databaseHostPort = "3306";
-	private static final String databaseName = "Image_Cls";
-	private static final String databaseUserName = "bd1e18811a0ad2";
-	private static final String databaseUserPassword = "bf2dc579";
+	private static final String databaseName = "13354146_PROJECT";
+	private static final String databaseUserName = "user";
+	private static final String databaseUserPassword = "Crash";
 
 	private static final String accountTable = "USER_WEB";
 	private static final String courseTable = "COURSE";
@@ -123,7 +123,7 @@ public class MySQLHelper {
 				+ "INNER JOIN %s A ON A.course_id = C2.course_id) " 
 				+ "WHERE C1.student_id = '%s' AND A.ddl > '%s'",
 				clsStuTable, courseTable, taPushHomeworkTable, stuId, timestamp.toString());
-			System.out.println("\n" + sql + "\n");
+			//System.out.println("\n" + sql + "\n");
 			ResultSet rs = query(sql);
 			while (rs.next()) {
 				homeworkPostList.add(new HomeworkPost(
@@ -157,20 +157,14 @@ public class MySQLHelper {
 	public static ArrayList<String> queryDownloadHomework(String classId, String hwId) {
 		ArrayList<String> fileSrcList = new ArrayList<String>();
 		try {
-			ArrayList<String> studentsIdList = new ArrayList<String>();
-			String sql = String.format("SELECT * FROM " + clsStuTable + " WHERE class_id='%s'", classId);
+			String sql = String.format("SELECT detail_attach_file FROM %s C1" 
+				+ " INNER JOIN %s S ON C1.course_id=S.course_id " 
+				+ "WHERE C1.class_id='%s' AND S.homework_id='%s'",
+				courseTable, stuSubmitHomeworkTable, classId, hwId);
+			System.out.println("\n" + sql + "\n");
 			ResultSet rs = query(sql);
 			while (rs.next()) {
-				studentsIdList.add(new String(rs.getString("student_id")));
-			}
-			for (String s : studentsIdList) {
-				String sql2 = String.format("SELECT * FROM " + stuSubmitHomeworkTable 
-					+ " WHERE homework_id='%s', student_id='%s'", 
-					hwId, s);
-				ResultSet rs2 = query(sql2);
-				while (rs2.next()) {
-					fileSrcList.add(new String(rs2.getString("detail_attach_file")));
-				}
+				fileSrcList.add(new String(rs.getString("detail_attach_file")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
