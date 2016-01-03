@@ -70,41 +70,41 @@
 
 以下的每个部分都是一张表。
 
-### 账户
+### 账户 `USER_WEB`
 
-| number | password |realname | type |  
+| user_id | password |realname | user_type |  
 |------------|------------|-----------|------|
 | 学号或职工号 | 密码（MD5 Hash）| 姓名 | 账户类型 |
 
 关于账户类型：0-管理员账户，1-教师账户，2-学生账户
 
-### 课程
+### 课程 `COURSE`
 
-| course_id | name | class_id | ta |
+| course_id | course_name | class_id | ta_id |
 |------------|-------|-----------|-----------|
 | 课程号 | 课程名 | 教学班号 | TA学号|
 
 ### 教学班
 
-| class_id | class_name | teacher |
+| class_id | class_name | teacher_id |
 |---------|----------|----------|
 | 教学班号 | 教学班名 | 教师职工号 |
 
 ### 教学班与学生的对应
 
-| class_id | student |
+| class_id | student_id |
 |---------|-----------|
 | 教学班号 | 学生学号 |
 
 ### 作业
 #### TA 发布的作业
 
-| course_id | number | title | description | attach_file | post_date | ddl |
+| course_id | homework_id | homework_title | homework_description | detail_attach_file | post_date | ddl |
 |-----------|------|------|--------------|------------|-------------|------|
 | 课程号 | 作业号 | 标题 | 作业描述 | 附件 | 发布时间 | DDL|
 
 #### 学生提交的作业
 
-| course_id | number | author |post_date| attach_file | score |
+| course_id | homework_id | student_id |post_date| detail_attach_file | score |
 |-----------|------|------|-------|-------|-------|
 | 课程号 | 作业号 |作者学号|最新一次提交时间|附件|作业分数|
