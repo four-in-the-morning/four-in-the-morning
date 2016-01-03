@@ -1,6 +1,6 @@
-<!-- <%@ page language="java" import="java.util.*" 
+<%@ page language="java" import="java.util.*, FourInTheMorning.MySQLHelper" 
          contentType="text/html; charset=utf-8"%>
-<%request.setCharacterEncoding("utf-8");%> -->
+<%request.setCharacterEncoding("utf-8");%> 
 <!DOCTYPE html>
 <html>
 	<head>
@@ -9,7 +9,7 @@
 		<title>登录</title>
 		</head>
 	<body>
-		<h1>登录</h1>
+		<h2>登录</h2>
 		<div id="login">
 			<form action="homepage.jsp" method="post">
 				<label for="user_id">学号：</label>
