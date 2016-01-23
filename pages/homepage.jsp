@@ -142,7 +142,7 @@
 						detail));
 					out.println(String.format(
 						"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/>"
-						+"<form action=\"homepage.jsp\" method=\"post\" enctype=\"multipart/form-data\">"
+						+"<form action=\"uploadFile2.jsp\" method=\"post\" enctype=\"multipart/form-data\">"
 						+"<input type=\"file\" name=\"file\" size=\"50\" /><br />"
 						+"<input type=\"submit\" value=\"Submit\" name=\"commit\"/>"
 						+"</form>" 
