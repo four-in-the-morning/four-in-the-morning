@@ -1,31 +1,26 @@
+<%@ page language="java" import="java.util.*"
+	contentType="text/html; charset=utf-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-	div#updatepassword {
-		border:solid 1px #666699;
-		margin-left:200px;
-		margin-right:200px;
-		padding:10px;
-	}
-</style>
-
+<link rel="stylesheet" type="text/css" href="css/updatePassword.css">
 <meta charset="UTF-8">
-<title>Updatepassword</title>
-
+<title>修改密码</title>
 </head>
 <body>
-	<div id="updatepassword">
-	<h1>修改密码</h1>
-	<form action="login.html" method="post">
-		旧密码：<input type="password" name="old_password" />
-		</br></br>
-		新密码：<input type="password" name="new_password" />
-		</br></br>
-		确认新密码：<input type="password" name="new_password_confirm" />
-		</br></br>
-		<input type="submit" value="确认修改" name="submit1">
-	</form>
+	<h2>修改密码</h2>
+	<div id="updatePassword">
+		<form action="index.jsp" method="post">
+			用户名： <input type="text" name="user_id" /> <br /> 
+			旧密码： <input type="password" name="password" /> <br /> 
+			新密码： <input type="password" name="password" /> <br /> 
+			确认密码： <input type="password" name="password" /> <br /> 
+			<input type="submit" value="确认修改密码" name="commit"> <br />
+		</form>
 	</div>
 </body>
 </html>

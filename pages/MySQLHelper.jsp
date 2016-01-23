@@ -2,12 +2,12 @@
 <%!
 static public class MySQLHelper {
 
-	private static final String databaseHostIp = "ap-cdbr-azure-southeast-a.cloudapp.net";
+	/*private static final String databaseHostIp = "ap-cdbr-azure-southeast-a.cloudapp.net";
 	private static final String databaseHostPort = "3306";
 	private static final String databaseName = "Image_Cls";
 	private static final String databaseUserName = "bd1e18811a0ad2";
-	private static final String databaseUserPassword = "bf2dc579";
-
+	private static final String databaseUserPassword = "bf2dc579";*/
+	
 	private static final String accountTable = "USER_WEB";
 	private static final String courseTable = "COURSE";
 	private static final String classTable = "COURSE_CLASS";
@@ -16,14 +16,24 @@ static public class MySQLHelper {
 	private static final String stuSubmitHomeworkTable = "STUDENT_HOMEWORK";
 
 	private static Connection getConnection() {
-		String connectString = "jdbc:mysql://" + databaseHostIp 
+		/*String connectString = "jdbc:mysql://" + databaseHostIp 
 								+ ":" + databaseHostPort 
 								+ "/" + databaseName 
-								+ "?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
+								+ "?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";*/
+		
+	    /****y****/
+		String connectString = "jdbc:mysql://localhost/13354146_PROJECT?"
+				+ "autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
+		/****y****/
+								
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(connectString, databaseUserName, databaseUserPassword);
+			
+			//conn = DriverManager.getConnection(connectString, databaseUserName, databaseUserPassword);
+			/***y****/
+			conn = DriverManager.getConnection(connectString, "root", "131413");
+			/***y****/
 			return conn;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -179,7 +189,25 @@ static public class MySQLHelper {
 			return false;
 		}
 	}
-
+	
+	/****y****/
+	public static boolean isTA(String stuId) {
+		String sql = String.format("SELECT COUNT(*) from " + courseTable + " where ta_id = '%s'", stuId);
+		ResultSet rs = query(sql);
+		Integer recordCount = 0;
+		try {
+			if (rs.next()) {
+		        recordCount = rs.getInt(1); 
+		    }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		if(recordCount > 0)
+			return true;
+		return false;
+	}
+	/****y****/
+	
 	public static class HomeworkPost {
 		public String course_id;
 		public String homework_id;

@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+body {
+    background-color: #c5d2df;
+    margin: 0px;
+    padding: 0px;
+}
+h2 {
+	text-align: center;
+	font-family:"微软雅黑";
+}
+.notice {
+	height: 27px;
+	margin: 0px;
+	padding: 7px;
+	background-color: #000;
+}
+#posthw {
+	font-weight: 800;
+	font-family:"微软雅黑";
+	font-size: 1.2em;
+	letter-spacing: 0.2em;
+	color: #fff;
+}
+#home {
+	font-family:"微软雅黑";
+	letter-spacing: 0.2em;
+	margin-top: 6px;
+	color: #fff;
+	float: right;
+}
+.postForm {
+	font-family: "微软雅黑";
+	border:solid 3px #fff;
+	width: 500px;
+	margin: 10px auto;
+	padding: 20px;
+	text-align: center;
+	border-radius: 6px 6px 6px 6px;
+	background-color: #fff;
+}
+a {
+	color:#fff;
+}
+a:hover {
+	color: #c5d2df;
+}

@@ -1,6 +1,7 @@
-<%@ page language="java" import="java.util.*, FourInTheMorning.MySQLHelper" 
+<%@ page language="java" import="java.util.*" 
          contentType="text/html; charset=utf-8"%>
 <%request.setCharacterEncoding("utf-8");%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,6 +18,9 @@
 				<label for="password">密码：</label>
 				<input type="password" name="password" /> <br/>
 				<input type="submit" value="登录" name="commit">
+			</form>
+			<form action="updatePassword.jsp" method="post">
+				<input type="submit" value="修改密码" name="updatePassword">
 			</form>
 		</div>
 	</body>
