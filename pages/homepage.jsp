@@ -61,10 +61,10 @@
 							post.homework_title, post.ddl, detail));
 					out.println(String.format(
 							"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/>"
-									+ "<form action=\"uploadFile2.jsp?detailIndex=%d\" method=\"post\" enctype=\"multipart/form-data\">"
-									+ "<input type=\"file\" name=\"file\" size=\"50\" /><br />"
-									+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>" + "</form>"
-									+ "<a href=\"%s\">附件更新啦</a></td></tr>",
+							+ "<form action=\"uploadFile2.jsp?detailIndex=%d\" method=\"post\" enctype=\"multipart/form-data\">"
+							+ "<input type=\"file\" name=\"file\" size=\"50\" /><br />"
+							+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>" + "</form>"
+							+ "<a href=\"%s\">附件更新啦</a></td></tr>",
 							count, count,
 							//post.homework_description,
 							post.detail_attach_file));

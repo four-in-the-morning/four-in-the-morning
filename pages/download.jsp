@@ -6,11 +6,11 @@
     response.reset();
     response.setContentType("application/x-download");
     // 你要下载的文件名称，这个名称是帮助你定位服务器文件的
-    String filename = fuwuqi.txt;
+    String filename = "fuwuqi.txt";
     application.getRealPath("/home/web/four-in-the-morning/homeworks/" + filename);
     String filedownload = "/home/web/four-in-the-morning/homeworks/" + filename;
     // 这里是文件显示名称，这个名称是用户拿到文件的命名，可以友好一些
-    String filedisplay = youhao.txt;
+    String filedisplay = "youhao.txt";
 
     filedisplay = URLEncoder.encode(filedisplay,"UTF-8");
     response.addHeader("Content-Disposition","attachment;filename=" + filedisplay);

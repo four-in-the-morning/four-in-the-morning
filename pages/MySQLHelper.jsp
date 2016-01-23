@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*,java.io.*,java.sql.*"%>
 <%!
-static public class MySQLHelper {
+public static class MySQLHelper {
 
 	/*private static final String databaseHostIp = "ap-cdbr-azure-southeast-a.cloudapp.net";
 	private static final String databaseHostPort = "3306";

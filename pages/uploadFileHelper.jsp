@@ -7,8 +7,6 @@
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 <%@ page import="org.apache.commons.fileupload.FileUploadException" %>
 <%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload" %>
-<%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory" %>
-<%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory" %>
 
 <%!
 public abstract class FileUploadBase {
