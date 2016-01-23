@@ -1,8 +1,6 @@
 <%@ page language="java" import="java.util.*"
 	contentType="text/html; charset=utf-8"%>
-<%
-	request.setCharacterEncoding("utf-8");
-%>
+<%request.setCharacterEncoding("utf-8");%>
 <%@include file="MySQLHelper.jsp"%>
 <%
 	String userId = request.getParameter("user_id");
@@ -34,39 +32,49 @@
 	
 %>
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="css/homepage.css">
-<meta charset="UTF-8">
-<title>个人主页</title>
-</head>
-<body>
-	<p><%=postHw%></p>
-	<p>你好, ${sessionScope.userId}</p>
-	<p>本周作业</p>
-	<table>
-		<tr>
-			<td>课程</td>
-			<td>作业</td>
-			<td>Deadline</td>
-			<td>详情</td>
-		</tr>
-		<%
-			ArrayList<MySQLHelper.HomeworkPost> postList = MySQLHelper.queryDDLHomework(userId);
-			for (MySQLHelper.HomeworkPost post : postList) {
-				String detail = String.format(
-						//"<a href=\"homeworkdetail.jsp?course_id=%s&homework_id=%s\">详情</a>",
-						"<a onclick=\"onClickChangeShow(this)\">详情</a>", post.course_id, post.homework_id);
-				out.print(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", post.course_id,
-						post.homework_title, post.ddl, detail));
-				out.print(String.format("<tr id=\"showOrHidden\" sytle=\"visibility: hidden\"><td>%s</td></tr>",
-						post.homework_description));
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/homepage.css">
+		<meta charset="UTF-8">
+		<title>个人主页</title>
+	</head>
+	<body>
+		<p>你好, ${sessionScope.userId}</p>
+		<p>本周作业</p>
+		<table>
+			<tr><td>课程</td><td>作业</td><td>Deadline</td><td>详情</td></tr>
+			<%
+				ArrayList<MySQLHelper.HomeworkPost> postList = MySQLHelper.queryDDLHomework(userId);
+				Integer count = 0;
+				for (MySQLHelper.HomeworkPost post : postList)  {
+					String detail = String.format(
+						"<button onclick=\"onClickChangeShow(this, %d)\">详情</button>",
+						count
+					);
+					out.println(String.format(
+						"<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
+						post.course_id,
+						post.homework_title,
+						post.ddl,
+						detail));
+					out.println(String.format(
+						"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述：<br/>"
+						+"<a href=\"%s\">提交作业</a> <a href=\"%s\">附件</a></td></tr>",
+						count,
+						post.homework_description,
+						post.detail_attach_file));
+					count++;
+				}
+			%>
+		</table>
+		<script type="text/javascript">
+			function onClickChangeShow(e, index) {
+				var temp = document.getElementById("showOrHidden" + index);
+				if (temp.style.display == "none") {
+					temp.style.display = "";
+				} else {
+					temp.style.display = "none";
+				}
 			}
-		%>
-	</table>
-	<script type="text/javascript">
-		function onClickChangeShow(e) {
-			document.getElementById("showOrHidden").style.visibility = "visible";
-		}
-	</script>
-</body>
+		</script>
+	</body>
 </html>
