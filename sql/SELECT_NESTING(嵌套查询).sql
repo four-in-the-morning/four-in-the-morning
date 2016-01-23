@@ -11,3 +11,5 @@ SELECT * FROM
 			WHERE C1.class_id = '1' AND S.homework_id = 'EX01';
 			
 SELECT * FROM ADD_HOMEWORK WHERE course_id = '123' AND homework_id = 'EX_01';
+
+SELECT course_id, course_name, C.class_id, ta_id FROM COURSE C INNER JOIN COURSE_CLASS CC ON C.class_id = CC.class_id WHERE teacher_id = "t1";

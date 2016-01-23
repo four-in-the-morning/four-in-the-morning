@@ -21,6 +21,7 @@
 	String detail_attach_file = "";
 	String post_date = "";
 	String ddl = "";
+	String hintToUser = "";
 	if (method.equals("POST")) {
 		course_id = request.getParameter("course_id");
 		homework_id = request.getParameter("homework_id");
@@ -32,7 +33,9 @@
 		ddl = request.getParameter("ddl");
 		MySQLHelper.HomeworkPost homeworkPost = new MySQLHelper.HomeworkPost(course_id, homework_id,
 				homework_title, homework_description, detail_attach_file, post_date, ddl);
-		MySQLHelper.addHomework(homeworkPost);
+		if(MySQLHelper.addHomework(homeworkPost)) {
+			hintToUser = "成功发布作业";
+		}
 	}
 %>
 
@@ -60,6 +63,7 @@
 				value="<%=detail_attach_file%>" /><br /><br /> DDL： <input
 				type="date" name="ddl" value="<%=ddl%>"/><br /><br /> <input type="submit"
 				value="发布" name="postHomework"><br /><br />
+			<%=hintToUser%>
 		</form>
 	</div>
 </body>

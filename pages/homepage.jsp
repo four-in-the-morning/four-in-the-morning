@@ -29,6 +29,14 @@
 	if (isTA) {
 		postHw = "<a href=\"addHomework.jsp\">发布作业</a>";
 	}
+
+	String chooseTA = "";
+	boolean isTeacher = false;
+	isTeacher = MySQLHelper.isTeacher(userId);
+	if (isTeacher) {
+		postHw = "<a href=\"addHomework.jsp\">发布作业</a>";
+		chooseTA = "<a href=\"chooseTA.jsp\">指定课程TA</a>";
+	}
 	
 %>
 <html>
@@ -38,42 +46,45 @@
 		<title>个人主页</title>
 	</head>
 	<body>
+		<p><%=postHw%></p>
+		<p><%=chooseTA%></p>
 		<p>你好, ${sessionScope.userId}</p>
-		<p>本周作业</p>
-		<table>
-			<tr><td>课程</td><td>作业</td><td>Deadline</td><td>详情</td></tr>
-			<%
+		<%
+			if (isTeacher == false) {
+				out.print("<p>本周作业</p>");
+				out.print("<table><tr><td>课程</td><td>作业</td><td>Deadline</td><td>详情</td></tr>");
 				ArrayList<MySQLHelper.HomeworkPost> postList = MySQLHelper.queryDDLHomework(userId);
 				Integer count = 0;
-				for (MySQLHelper.HomeworkPost post : postList)  {
-					String detail = String.format(
-						"<button onclick=\"onClickChangeShow(this, %d)\">详情</button>",
-						count
-					);
+				for (MySQLHelper.HomeworkPost post : postList) {
+					String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
+					out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", post.course_id,
+							post.homework_title, post.ddl, detail));
 					out.println(String.format(
-						"<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
-						post.course_id,
-						post.homework_title,
-						post.ddl,
-						detail));
-					out.println(String.format(
-						"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述：<br/>"
-						+ "<form action=\"uploadFile2.jsp?detailIndex=%d\" method=\"post\" enctype=\"multipart/form-data\">"
-						+ "<input type=\"file\" name=\"file\" size=\"0\" /><br />"
-						//+ "<input type=\"hidden\" name=\"detailIndex\" value=\"%d\" />"
-						+ "<input type=\"submit\" value=\"Submit\" />"
-						+ "</form>" 
-						+  "<a href=\"%s\">附件</a></td></tr>",
-						count, count,
-						//post.homework_description,
-						post.detail_attach_file));
+							"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/>"
+									+ "<form action=\"uploadFile2.jsp?detailIndex=%d\" method=\"post\" enctype=\"multipart/form-data\">"
+									+ "<input type=\"file\" name=\"file\" size=\"50\" /><br />"
+									+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>" + "</form>"
+									+ "<a href=\"%s\">附件更新啦</a></td></tr>",
+							count, count,
+							//post.homework_description,
+							post.detail_attach_file));
 					count++;
 				}
-			%>
-		</table>
+				out.print("</table>");
+			} else {
+				out.print("<p>我的课程</p><table><tr><td>课程号</td><td>课程名</td><td>教学班号</td><td>TA姓名</td></tr>");
+				ArrayList<MySQLHelper.CourseInfo> courseList = MySQLHelper.queryCourseInfo(userId);
+				for(MySQLHelper.CourseInfo course: courseList) {
+					out.print("<tr><td>" + course.course_id + "</td><td>" + course.course_name + "</td><td>" + course.class_id + "</td><td>" + course.ta_name + "</td></tr>");
+				}
+				out.print("</table>");
+			}
+		%>
+
 		<%
 			String detailIndex = request.getParameter("detailIndex");
 		%>
+
 		<script type="text/javascript">
 			function onClickChangeShow(e, index) {
 				var temp = document.getElementById("showOrHidden" + index);

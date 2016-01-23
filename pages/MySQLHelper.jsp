@@ -27,7 +27,7 @@ static public class MySQLHelper {
 								+ "/" + databaseName 
 								+ "?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
 		
-	    /****y****/
+		/****y****/
 		/*String connectString = "jdbc:mysql://localhost/13354146_PROJECT?"
 				+ "autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";*/
 		/****y****/
@@ -124,7 +124,7 @@ static public class MySQLHelper {
 		ArrayList<HomeworkPost> homeworkPostList = new ArrayList<HomeworkPost>();
 		try {
 			java.util.Date date = new java.util.Date(); 
-	 		Timestamp timestamp = new Timestamp(date.getTime());
+			Timestamp timestamp = new Timestamp(date.getTime());
 			String sql = String.format("SELECT * FROM (" 
 				+ "(%s C1 INNER JOIN %s C2 ON C1.class_id = C2.class_id) " 
 				+ "INNER JOIN %s A ON A.course_id = C2.course_id) " 
@@ -196,15 +196,14 @@ static public class MySQLHelper {
 		}
 	}
 	
-	/****y****/
 	public static boolean isTA(String stuId) {
 		String sql = String.format("SELECT COUNT(*) from " + courseTable + " where ta_id = '%s'", stuId);
 		ResultSet rs = query(sql);
 		Integer recordCount = 0;
 		try {
 			if (rs.next()) {
-		        recordCount = rs.getInt(1); 
-		    }
+				recordCount = rs.getInt(1); 
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -212,7 +211,74 @@ static public class MySQLHelper {
 			return true;
 		return false;
 	}
-	/****y****/
+	
+	public static boolean isTeacher(String teacherId) {
+		String sql = String.format("SELECT COUNT(*) from " + classTable + " where teacher_id = '%s'", teacherId);
+		ResultSet rs = query(sql);
+		Integer recordCount = 0;
+		try {
+			if (rs.next()) {
+				recordCount = rs.getInt(1); 
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		if(recordCount > 0)
+			return true;
+		return false;
+	}
+	
+	public static boolean chooseTA(String course_id, String course_name, String class_id, String ta_id) {
+		String sql = String.format("INSERT INTO " + courseTable 
+				+ " values('%s', '%s', '%s', '%s')", 
+				course_id, course_name, class_id, ta_id);
+			if (update(sql)) {
+				return true;
+			} else {
+				return false;
+			}
+	}
+	
+	
+	public static ArrayList<CourseInfo> queryCourseInfo(String teacherId) {
+		
+		ArrayList<CourseInfo> courseInfoList = new ArrayList<CourseInfo>();
+		try {
+			String sql = String.format("SELECT course_id, course_name, C.class_id, ta_id FROM %s " +
+			"C INNER JOIN %s CC ON C.class_id = CC.class_id " + 
+			"WHERE teacher_id = '%s'", courseTable, classTable, teacherId);
+			ResultSet rs = query(sql);
+			while(rs.next()) {
+				String sub_sql = String.format("SELECT realname FROM %s WHERE user_id = '%s'", accountTable, rs.getString("ta_id"));
+				ResultSet sub_rs = query(sub_sql);
+				String ta_name = "";
+				if (sub_rs.next()) {
+					ta_name = sub_rs.getString("realname");
+				}
+				courseInfoList.add(new CourseInfo(
+						rs.getString("course_id"),
+						rs.getString("course_name"),
+						rs.getString("class_id"),
+						ta_name));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return courseInfoList;
+	}
+	
+	public static class CourseInfo {
+		public String course_id;
+		public String course_name;
+		public String class_id;
+		public String ta_name;
+		public CourseInfo (String _course_id, String _course_name, String _class_id, String _ta_name){
+			this.course_id = _course_id;
+			this.course_name = _course_name;
+			this.class_id = _class_id;
+			this.ta_name = _ta_name;
+		}
+	}
 	
 	public static class HomeworkPost {
 		public String course_id;
@@ -252,6 +318,5 @@ static public class MySQLHelper {
 		}
 	}
 }
-
 
 %>
