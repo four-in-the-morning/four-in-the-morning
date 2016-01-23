@@ -20,7 +20,9 @@
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			//response.sendRedirect("homepage.jsp");
+			
+			String detailIndex = request.getParameter("detailIndex");
+			response.sendRedirect("homepage.jsp?submitsuccess=true&detailIndex=" + detailIndex);
 		%>
 	</body>
 </html>
