@@ -14,17 +14,22 @@
 
 <%
 	String method = request.getMethod();
-	String course_id = "";
+	String courseName = "<select name=\"course_name\">";
+	ArrayList<String> courseList = MySQLHelper.queryCourseForTeacher(userId);
+	for(String course: courseList) {
+		courseName += "<option value=" + course + ">" + course + "</option>";
+	}
+	courseName += "</select>";
 	String course_name = "";
 	String class_id = "";
 	String ta_id = "";
 	String hintToUser = "";
 	if (method.equals("POST")) {
-		course_id = request.getParameter("course_id");
 		course_name = request.getParameter("course_name");
+		courseName = request.getParameter("course_name");
 		class_id = request.getParameter("class_id");
 		ta_id = request.getParameter("ta_id");
-		if(MySQLHelper.chooseTA(course_id, course_name, class_id, ta_id)) {
+		if(MySQLHelper.chooseTA(course_name, class_id, ta_id)) {
 			hintToUser = "成功指定课程TA";
 		}
 	}
@@ -45,12 +50,11 @@
 	<h2 id="title">指定课程TA</h2>
 	<div class="postForm">
 		<form action="chooseTA.jsp" method="post">
-			课程号： <input type="text" name="course_id" value="<%=course_id%>" /><br /><br />
-			课程名： <input type="text" name="course_name" value="<%=course_name%>" /><br /><br />
+			课程名： <%=courseName%><br /><br />
 			教学班号： <input type="text" name="class_id"
 				value="<%=class_id%>" /><br /><br />
 				TA学号： <input type="text" name="ta_id"
-				value="<%=class_id%>" /><br /><br /><input type="submit"
+				value="<%=ta_id%>" /><br /><br /><input type="submit"
 				value="确定" name="postTA"><br /><br />
 			<%=hintToUser%>
 		</form>

@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*,java.io.*,java.sql.*"%>
 <%!
-static public class MySQLHelper {
+public static class MySQLHelper {
 
 	/*private static final String databaseHostIp = "ap-cdbr-azure-southeast-a.cloudapp.net";
 	private static final String databaseHostPort = "3306";
@@ -228,15 +228,25 @@ static public class MySQLHelper {
 		return false;
 	}
 	
-	public static boolean chooseTA(String course_id, String course_name, String class_id, String ta_id) {
+	public static boolean chooseTA(String course_name, String class_id, String ta_id) {
+		String course_id = "";
+		String sub_sql = String.format("SELECT course_id FROM %s WHERE course_name = '%s'", courseTable, course_name);
+		ResultSet sub_rs = query(sub_sql);
+		try {
+			if (sub_rs.next()) {
+				course_id = sub_rs.getString("course_id");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		String sql = String.format("INSERT INTO " + courseTable 
 				+ " values('%s', '%s', '%s', '%s')", 
 				course_id, course_name, class_id, ta_id);
-			if (update(sql)) {
-				return true;
-			} else {
-				return false;
-			}
+		if (update(sql)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	
@@ -266,6 +276,21 @@ static public class MySQLHelper {
 		}
 		return courseInfoList;
 	}
+	
+	public static ArrayList<String> queryCourseForTeacher(String teacherId) {
+		ArrayList<String> courseForTeacher = new ArrayList<String>();
+		try {
+			String sql = String.format("SELECT DISTINCT course_name FROM %s C INNER JOIN %s CC ON C.class_id = CC.class_id WHERE teacher_id = '%s'", courseTable, classTable, teacherId);
+			ResultSet rs = query(sql);
+			while(rs.next()) {
+				courseForTeacher.add(rs.getString("course_name"));
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return courseForTeacher;
+	} 
 	
 	public static class CourseInfo {
 		public String course_id;
