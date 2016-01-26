@@ -1,0 +1,80 @@
+/* Gobal Configure */
+@CHARSET "UTF-8";
+/* whole page */
+body {
+	font-family:"微软雅黑";
+	background-color: #c5d2df;
+	margin: 0px;
+	padding: 0px;
+}
+.Center {
+	text-align: center;
+	margin: 0px auto;
+}
+.Inline {
+	display: inline-block;
+}
+a {
+	color:#fff;
+}
+a:hover {
+	color: #c5d2df;
+}
+/* Header */
+#header {
+	height: 40px;
+	margin: 0px;
+	padding: 0px 10px 0px 10px;
+	background-color: #000;
+}
+#siteName {
+	line-height: 40px;
+	font-weight: 800;
+	font-size: 1.2em;
+	letter-spacing: 0.2em;
+	vertical-align: middle;
+	color: #fff;
+}
+#jumpHerf {
+	line-height: 40px;
+	letter-spacing: 0.2em;
+	vertical-align: middle;
+	margin-left: 20px;
+	color: #fff;
+	float: right;
+}
+/* Main */
+#container {
+	width: 50%;
+	margin: 0px auto;
+	padding: 10px;
+}
+#containerBig {
+	width: 70%;
+	margin: 0px auto;
+	padding: 10px;
+}
+#title {
+	text-align: center;
+}
+#postForm {
+	width: 500px;
+	margin: 10px auto;
+	padding: 20px;
+	border: solid 3px #fff;
+	border-radius: 6px;
+	background-color: #fff;
+}
+#postFormContent {
+	margin: 0px auto;
+	padding: 0px;
+	text-align: left;
+}
+#centerTable {
+	width: 900px;
+	margin: 10px auto;
+	padding: 20px;
+	border: solid 3px #fff;
+	border-radius: 6px;
+	background-color: #fff;
+}
