@@ -27,21 +27,6 @@
 	String post_date = "";
 	String ddl = "";
 	String hintToUser = "";
-	// if (method.equals("POST")) {
-	// 	course_id = request.getParameter("course_id");
-	// 	homework_id = request.getParameter("homework_id");
-	// 	homework_title = request.getParameter("homework_title");
-	// 	homework_description = request.getParameter("homework_description");
-	// 	detail_attach_file = request.getParameter("detail_attach_file");
-	// 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	// 	post_date = df.format(new Date());
-	// 	ddl = request.getParameter("ddl");
-	// 	MySQLHelper.HomeworkPost homeworkPost = new MySQLHelper.HomeworkPost(course_id, homework_id,
-	// 			homework_title, homework_description, detail_attach_file, post_date, ddl);
-	// 	if(MySQLHelper.addHomework(homeworkPost)) {
-	// 		hintToUser = "成功发布作业";
-	// 	}
-	// }
 	if (method.equals("POST")) {
 		DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
 		ServletFileUpload servletFileUpload = new ServletFileUpload(diskFileItemFactory);
@@ -72,8 +57,6 @@
 						path.mkdir();
 					}
 					detail_attach_file = path + "/" + fName;
-					//out.println(filepath);
-					//out.println(fName);
 					try {
 						if (fName != "") {
 							item.write(new File(detail_attach_file));
@@ -95,45 +78,46 @@
 		if(MySQLHelper.addHomework(homeworkPost)) {
 			hintToUser = "成功发布作业";
 		}
-		// out.println(course_id);
-		// out.println(homework_id);
-		// out.println(homework_title);
-		// out.println(homework_description);
-		// out.println(detail_attach_file);
-		// out.println(ddl);
-		// return;
 	}
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/addHomework.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>发布作业</title>
 </head>
 <body>
-	<div class="notice">
-		<span id="posthw">凌晨四点</span><span id="home"><a
-			href="homepage.jsp">个人主页</a></span>
+	<div id="header">
+		<span id="siteName">凌晨四点</span>
+		<span id="jumpHerf"><a href="homepage.jsp">个人主页</a></span>
 	</div>
-	<h2 id="title">发布作业</h2>
-	<div class="postForm">
-		<form action="addHomework.jsp" method="post" enctype = "multipart/form-data">
-			课程号： <input type="text" name="course_id" value="<%=course_id%>" /><br /><br />
-			作业号： <input type="text" name="homework_id" value="<%=homework_id%>" /><br /><br />
-			作业标题： <input type="text" name="homework_title"
-				value="<%=homework_title%>" /><br /><br /> 
-			作业描述： <input type="text"
-				name="homework_description" value="<%=homework_description%>" /><br /><br />
-			附件： <input type="file" name="detail_attach_file"
-				value="<%=detail_attach_file%>" /><br /><br />
-			DDL： <input
-				type="date" name="ddl" value="<%=ddl%>"/><br /><br /> 
-			<input type="submit"
-				value="发布" name="postHomework"><br /><br />
-			<%=hintToUser%>
-		</form>
+	<div id="container">
+		<h2 id="title">发布作业</h2>
+		<div id="postForm">
+			<div id="postFormContent" style="width: 345px;">
+				<form action="addHomework.jsp" method="post" enctype = "multipart/form-data">
+					<label for="course_id">课程号：</label>
+					<input type="text" name="course_id" value="<%=course_id%>" /><br /><br />
+					<label for="homework_id">作业号：</label> 
+					<input type="text" name="homework_id" value="<%=homework_id%>" /><br /><br />
+					<label for="homework_title">作业标题：</label>
+					<input type="text" name="homework_title" value="<%=homework_title%>" /><br /><br /> 
+					<label for="homework_description">作业描述：</label>
+					<input type="text" name="homework_description" value="<%=homework_description%>" /><br /><br />
+					<label for="detail_attach_file">附件：</label>
+					<input type="file" name="detail_attach_file" value="<%=detail_attach_file%>" /><br /><br />
+					<label for="ddl">DDL：</label>
+					<input type="date" name="ddl" value="<%=ddl%>" /><br /><br />
+					<div class="Center">
+						<input type="submit" value="发布" name="postHomework"><br /><br />
+						<%=hintToUser%>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

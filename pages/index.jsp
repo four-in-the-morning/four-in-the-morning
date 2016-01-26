@@ -4,23 +4,40 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/login.css">
 		<meta charset="UTF-8">
 		<title>登录</title>
-		</head>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/login.css">
+	</head>
 	<body>
-		<h2>登录</h2>
-		<div id="login">
-			<form action="homepage.jsp" method="post">
-				<label for="user_id">学号：</label>
-				<input type="text" name="user_id" /> <br/>
-				<label for="password">密码：</label>
-				<input type="password" name="password" /> <br/>
-				<input type="submit" value="登录" name="commit">
-			</form>
-			<form action="updatePassword.jsp" method="post">
-				<input type="submit" value="修改密码" name="updatePassword">
-			</form>
+		<div id="header">
+			<span id="siteName">凌晨四点</span>
+			<span id="jumpHerf"><a href="index.jsp">登陆</a></span>
 		</div>
+		<div id="container">
+			<h2 id="title">登录</h2>
+			<div id="postForm">
+				<div id="postFormContent" style="width: 169px;">
+					<form action="homepage.jsp" method="post">
+						<label for="user_id">学号：</label><br/>
+						<input type="text" name="user_id" /><br/>
+						<label for="password">密码：</label><br/>
+						<input type="password" name="password" /><br/>
+						<div class="Center" id="twoBtnStyle">
+							<input type="submit" value="登录" name="commit" />
+							<button onclick="jumpUpadtePassword">修改密码</button>
+							<!-- <form action="updatePassword.jsp" method="post">
+								<input type="submit" value="修改密码" name="updatePassword">
+							</form> -->
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function jumpUpadtePassword() {
+				window.location.replace("updatePassword.jsp");
+			}
+		</script>
 	</body>
 </html>

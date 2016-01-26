@@ -1,13 +1,26 @@
-body, h1, table {
-    width: 800px;
-    margin: 20px auto;
-    text-align: center;
+#containerBig > p {
+	text-align: center;
+}
+table {
+	width: 800px;
+	margin: 20px auto;
+	text-align: center;
 }
 table, tr, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    padding: 10px;
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 10px;
 }
 tr:first-child td {
-    font-weight: bold;
+	font-weight: bold;
+}
+tr[id^="showOrHidden"] > td {
+	padding: 20px;
+	text-align: left;
+}
+tr[id^="showOrHidden"] a {
+	color: blue;
+}
+input[type="file"] {
+	width: 400px;
 }
