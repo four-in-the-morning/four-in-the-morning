@@ -33,7 +33,7 @@
 		</div>
 		<script language="javascript" type="text/javascript">
 			function jumpUpadtePassword() {
-				window.location.href = "updatepassword.jsp";
+				window.location.href = "updatePassword.jsp";
 				return false;
 			}
 		</script>

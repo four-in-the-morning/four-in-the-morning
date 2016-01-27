@@ -72,7 +72,7 @@
 								+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>" + "</form>"
 								+ "<p>附件下载：<a href=\"%s\" target=\"_blank\">附件</a></p></td></tr>",
 								count, count,
-								post.homework_title + "_" + user_id,
+								post.homework_title + "_" + userId,
 								//post.homework_description,
 								post.detail_attach_file));
 						count++;
