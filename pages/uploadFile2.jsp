@@ -13,7 +13,7 @@
 		<%
 			SingleFileUpload upload = new SingleFileUpload();
 			upload.parseRequest(request);
-			File parent = new File("/home/");
+			File parent = new File("/home/web/four-in-the-morning/ROOT/four-in-the-morning/homeworkUpload/");
 			
 			try {
 				upload.upload(parent);

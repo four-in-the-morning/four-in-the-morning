@@ -60,7 +60,7 @@
 				if (isTeacher == false) {
 					out.println("<h2 id=\"title\">本周作业</h2>");
 					out.println("<div id=\"centerTable\">");
-					out.println("<table><tr><td>课程</td><td>作业</td><td>Deadline</td><td>详情</td></tr>");
+					out.println("<table class=\"bordered\"><thead><tr><th>课程</th><th>作业</th><th>Deadline</th><th>详情</th></tr></thead>");
 					ArrayList<MySQLHelper.HomeworkPost> postList = MySQLHelper.queryDDLHomework(userId);
 					for (MySQLHelper.HomeworkPost post : postList) {
 						String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
@@ -81,7 +81,7 @@
 				} else {
 					out.println("<h2 id=\"title\">我的课程</h2>");
 					out.println("<div id=\"centerTable\">");
-					out.println("<table><tr><td>课程号</td><td>课程名</td><td>教学班号</td><td>TA姓名</td></tr>");
+					out.println("<table class=\"bordered\"><thead><tr><th>课程号</th><th>课程名</th><th>教学班号</th><th>TA姓名</td></tr></thead>");
 					ArrayList<MySQLHelper.CourseInfo> courseList = MySQLHelper.queryCourseInfo(userId);
 					for(MySQLHelper.CourseInfo course: courseList) {
 						out.println("<tr><td>" + course.course_id + "</td><td>" + course.course_name + "</td><td>" + course.class_id + "</td><td>" + course.ta_name + "</td></tr>");
@@ -94,7 +94,7 @@
 				if (isTA == true) {
 					out.println("<h2 id=\"title\">教学助理</h2>");
 					out.println("<div id=\"centerTable\">");
-					out.println("<table><tr><td>课程</td><td>作业</td><td>Deadline</td><td>详情</td></tr>");
+					out.println("<table class=\"zebra\"><thead><tr><th>课程</th><th>作业</th><th>Deadline</th><th>详情</th></tr></thead>");
 					ArrayList<MySQLHelper.HomeworkPost> assistantList = MySQLHelper.queryDDLHomework(userId);
 					for (MySQLHelper.HomeworkPost assist : assistantList) {
 						String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
