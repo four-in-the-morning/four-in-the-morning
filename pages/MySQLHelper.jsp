@@ -276,21 +276,6 @@ public static class MySQLHelper {
 		}
 		return courseInfoList;
 	}
-
-	public static ArrayList<String> queryCourseForTeacher(String teacherId) {
-		ArrayList<String> courseForTeacher = new ArrayList<String>();
-		try {
-			String sql = String.format("SELECT DISTINCT course_name FROM %s C INNER JOIN %s CC ON C.class_id = CC.class_id WHERE teacher_id = '%s'", courseTable, classTable, teacherId);
-			ResultSet rs = query(sql);
-			while(rs.next()) {
-				courseForTeacher.add(rs.getString("course_name"));
-			}
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return courseForTeacher;
-	}
 	
 	public static class CourseInfo {
 		public String course_id;
