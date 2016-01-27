@@ -56,12 +56,12 @@
 		<div id="containerBig">
 			<p>你好, ${sessionScope.userId}</p>
 			<%
+				Integer count = 0;
 				if (isTeacher == false) {
 					out.println("<h2 id=\"title\">本周作业</h2>");
 					out.println("<div id=\"centerTable\">");
 					out.println("<table><tr><td>课程</td><td>作业</td><td>Deadline</td><td>详情</td></tr>");
 					ArrayList<MySQLHelper.HomeworkPost> postList = MySQLHelper.queryDDLHomework(userId);
-					Integer count = 0;
 					for (MySQLHelper.HomeworkPost post : postList) {
 						String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
 						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", post.course_id, post.homework_title, post.ddl, detail));
@@ -70,7 +70,7 @@
 								+ "<form action=\"uploadFile2.jsp?detailIndex=%d\" method=\"post\" enctype=\"multipart/form-data\">"
 								+ "<input type=\"file\" name=\"file\" size=\"50\" />"
 								+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>" + "</form>"
-								+ "<p>附件下载：<a href=\"%s\">附件更新啦</a></p></td></tr>",
+								+ "<p>附件下载：<a href=\"%s\" target=\"_blank\">附件</a></p></td></tr>",
 								count, count,
 								//post.homework_description,
 								post.detail_attach_file));
@@ -85,6 +85,25 @@
 					ArrayList<MySQLHelper.CourseInfo> courseList = MySQLHelper.queryCourseInfo(userId);
 					for(MySQLHelper.CourseInfo course: courseList) {
 						out.println("<tr><td>" + course.course_id + "</td><td>" + course.course_name + "</td><td>" + course.class_id + "</td><td>" + course.ta_name + "</td></tr>");
+					}
+					out.println("</table>");
+					out.println("</div>");
+				}
+			%>
+			<%
+				if (isTA == true) {
+					out.println("<h2 id=\"title\">教学助理</h2>");
+					out.println("<div id=\"centerTable\">");
+					out.println("<table><tr><td>课程</td><td>作业</td><td>Deadline</td><td>详情</td></tr>");
+					ArrayList<MySQLHelper.HomeworkPost> assistantList = MySQLHelper.queryDDLHomework(userId);
+					for (MySQLHelper.HomeworkPost assist : assistantList) {
+						String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
+						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", assist.course_id, assist.homework_title, assist.ddl, detail));
+						out.println(String.format(
+								"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/><br/>"
+								+ "<p>作业批量下载：<button onclick=\"\">点击</button></p></td></tr>",
+								count));
+						count++;
 					}
 					out.println("</table>");
 					out.println("</div>");
