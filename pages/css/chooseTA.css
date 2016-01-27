@@ -3,3 +3,8 @@ form > label {
 	text-align: right;
 	display: inline-block;
 }
+
+#selCourseNames {
+	width: 173px;
+	height: 21px;
+}
