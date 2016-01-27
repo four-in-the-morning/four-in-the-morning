@@ -12,7 +12,7 @@
 	<body>
 		<div id="header">
 			<span id="siteName">凌晨四点</span>
-			<span id="jumpHerf"><a href="index.jsp">登录</a></span>
+			<span id="jumpHerf"><a href="index.jsp">登陆</a></span>
 		</div>
 		<div id="container">
 			<h2 id="title">登录</h2>
@@ -25,18 +25,16 @@
 						<input type="password" name="password" /><br/>
 						<div class="Center" id="twoBtnStyle">
 							<input type="submit" value="登录" name="commit" />
-							<input type="button" value="修改密码" onclick="jumpUpdatePassword();" />
-							<!-- <form action="updatePassword.jsp" method="post">
-								<input type="submit" value="修改密码" name="updatePassword">
-							</form> -->
+							<input type="button" value="修改密码" onclick="jumpUpadtePassword();" />
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-			function jumpUpdatePassword() {
-				window.location.replace("updatePassword.jsp");
+		<script language="javascript" type="text/javascript">
+			function jumpUpadtePassword() {
+				window.location.href = "updatepassword.jsp";
+				return false;
 			}
 		</script>
 	</body>

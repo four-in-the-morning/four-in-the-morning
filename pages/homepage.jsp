@@ -66,11 +66,11 @@
 						String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
 						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", post.course_id, post.homework_title, post.ddl, detail));
 						out.println(String.format(
-								"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/>"
+								"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/><br/>"
 								+ "<form action=\"uploadFile2.jsp?detailIndex=%d\" method=\"post\" enctype=\"multipart/form-data\">"
-								+ "<input type=\"file\" name=\"file\" size=\"50\" /><br />"
+								+ "<input type=\"file\" name=\"file\" size=\"50\" />"
 								+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>" + "</form>"
-								+ "<a href=\"%s\">附件更新啦</a></td></tr>",
+								+ "<p>附件下载：<a href=\"%s\">附件更新啦</a></p></td></tr>",
 								count, count,
 								//post.homework_description,
 								post.detail_attach_file));
