@@ -12,7 +12,7 @@
 	<body>
 		<div id="header">
 			<span id="siteName">凌晨四点</span>
-			<span id="jumpHerf"><a href="index.jsp">登陆</a></span>
+			<span id="jumpHerf"><a href="index.jsp">登录</a></span>
 		</div>
 		<div id="container">
 			<h2 id="title">登录</h2>

@@ -210,6 +210,14 @@ public class SingleFileUpload extends FileUploadBase {
         File file = new File(parent, name);
         uploadFile(file);
     }
+
+    public void upload(File parent, String newFileName) throws Exception {
+        if (fileItem == null)
+            return;
+
+        File file = new File(parent, newFileName);
+        uploadFile(file);
+    }
     
     private void uploadFile(File file) throws Exception{
         if (fileItem == null)

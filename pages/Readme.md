@@ -20,10 +20,12 @@ pwd:t1
 
 ###文件位置一览
 
-#####作业文档位置
+#####作业文档
 
-four-in-the-morning/homeworkPost/
+位置：four-in-the-morning/homeworkPost/
 
-#####作业上传位置
+#####作业上传
 
-four-in-the-morning/homeworkUpload/
+位置：four-in-the-morning/homeworkUpload/
+
+命名(例)：数据库原理第一次作业_13354237.abc

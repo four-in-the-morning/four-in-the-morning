@@ -16,7 +16,11 @@
 			File parent = new File("/home/web/four-in-the-morning/ROOT/four-in-the-morning/homeworkUpload/");
 			
 			try {
-				upload.upload(parent);
+				String newFileName = request.getParameter("fileName");
+				String oldFileName = upload.getFileItem().getName();
+				String[] oldFileNameSplit = oldFileName.split(".");
+				newFileName += ("." + oldFileNameSplit[oldFileNameSplit.length - 1]); 
+				upload.upload(parent, newFileName);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
