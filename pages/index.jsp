@@ -25,18 +25,16 @@
 						<input type="password" name="password" /><br/>
 						<div class="Center" id="twoBtnStyle">
 							<input type="submit" value="登录" name="commit" />
-							<button onclick="jumpUpadtePassword">修改密码</button>
-							<!-- <form action="updatePassword.jsp" method="post">
-								<input type="submit" value="修改密码" name="updatePassword">
-							</form> -->
+							<input type="button" value="修改密码" onclick="jumpUpadtePassword();" />
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
+		<script language="javascript" type="text/javascript">
 			function jumpUpadtePassword() {
-				window.location.replace("updatePassword.jsp");
+				window.location.href = "updatepassword.jsp";
+				return false;
 			}
 		</script>
 	</body>
