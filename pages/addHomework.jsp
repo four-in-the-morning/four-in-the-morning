@@ -51,12 +51,19 @@
 					String fName = item.getName();  //这里是获取文件名
 					int i = fName.lastIndexOf("\\");//此处由于ie中上传文件时是以图片的绝对路径全称作为文件名所以必需截取后面的文件名
 					fName = fName.substring(i + 1, fName.length());
-					String filepath = request.getRealPath("/") + "four-in-the-morning/homeworkPost";
+					// String filepath = request.getRealPath("/") + "four-in-the-morning/homeworkPost";
+					String filepath = request.getRealPath("/") + "homeworkPost\\";
 					File path = new File(filepath);
 					if (!path.isDirectory()) {
 						path.mkdir();
 					}
-					detail_attach_file = path + "/" + fName;
+					// detail_attach_file = path + "/" + fName;
+					if (homework_title.isEmpty()) {
+						detail_attach_file = path + "\\" + fName;
+					} else {
+						String[] fNameSplit = fName.split("\\.");
+						detail_attach_file = path + "\\" + homework_title + "文档." + fNameSplit[fNameSplit.length - 1];
+					}
 					try {
 						if (fName != "") {
 							item.write(new File(detail_attach_file));

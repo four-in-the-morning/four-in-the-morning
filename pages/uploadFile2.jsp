@@ -13,13 +13,16 @@
 		<%
 			SingleFileUpload upload = new SingleFileUpload();
 			upload.parseRequest(request);
-			File parent = new File("/home/web/four-in-the-morning/ROOT/four-in-the-morning/homeworkUpload/");
+
+			String fileDir = request.getRealPath("/") + "homeworkUpload\\";
+			//File parent = new File("/home/web/four-in-the-morning/ROOT/four-in-the-morning/homeworkUpload/");
+			File parent = new File(fileDir);
 			
 			try {
 				String newFileName = request.getParameter("fileName");
 				String oldFileName = upload.getFileItem().getName();
-				String[] oldFileNameSplit = oldFileName.split(".");
-				newFileName += ("." + oldFileNameSplit[oldFileNameSplit.length - 1]); 
+				String[] oldFileNameSplit = oldFileName.split("\\.");
+				newFileName += ("." + oldFileNameSplit[oldFileNameSplit.length - 1]);
 				upload.upload(parent, newFileName);
 			} catch (Exception e) {
 				e.printStackTrace();

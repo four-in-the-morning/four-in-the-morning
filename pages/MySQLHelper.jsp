@@ -2,17 +2,17 @@
 <%!
 public static class MySQLHelper {
 
-	/*private static final String databaseHostIp = "ap-cdbr-azure-southeast-a.cloudapp.net";
-	private static final String databaseHostPort = "3306";
-	private static final String databaseName = "Image_Cls";
-	private static final String databaseUserName = "bd1e18811a0ad2";
-	private static final String databaseUserPassword = "bf2dc579";*/
-	
-	private static final String databaseHostIp = "sunshining.cloudapp.net";
-	private static final String databaseHostPort = "3306";
+	private static final String databaseHostIp = "202.116.76.22";
+	private static final String databaseHostPort = "53306";
 	private static final String databaseName = "13354146_PROJECT";
 	private static final String databaseUserName = "user";
-	private static final String databaseUserPassword = "Crash";
+	private static final String databaseUserPassword = "123456";
+	
+	// private static final String databaseHostIp = "sunshining.cloudapp.net";
+	// private static final String databaseHostPort = "3306";
+	// private static final String databaseName = "13354146_PROJECT";
+	// private static final String databaseUserName = "user";
+	// private static final String databaseUserPassword = "Crash";
 	
 	private static final String accountTable = "USER_WEB";
 	private static final String courseTable = "COURSE";
