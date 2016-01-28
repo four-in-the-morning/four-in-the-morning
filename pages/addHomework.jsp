@@ -19,6 +19,7 @@
 
 <%
 	String method = request.getMethod();
+	String pageAddress = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 	String course_id = "";
 	String homework_id = "";
 	String homework_title = "";
@@ -57,16 +58,18 @@
 					if (!path.isDirectory()) {
 						path.mkdir();
 					}
-					// detail_attach_file = path + "/" + fName;
+					String finalFilePath = null;
 					if (homework_title.isEmpty()) {
-						detail_attach_file = path + "\\" + fName;
+						finalFilePath = path + "\\" + fName;
+						detail_attach_file = pageAddress + "/homeworkPost/" + fName;
 					} else {
 						String[] fNameSplit = fName.split("\\.");
-						detail_attach_file = path + "\\" + homework_title + "文档." + fNameSplit[fNameSplit.length - 1];
+						finalFilePath = path + "\\" + homework_title + "文档." + fNameSplit[fNameSplit.length - 1];
+						detail_attach_file = pageAddress + "/homeworkPost/" + homework_title + "文档." + fNameSplit[fNameSplit.length - 1];
 					}
 					try {
 						if (fName != "") {
-							item.write(new File(detail_attach_file));
+							item.write(new File(finalFilePath));
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

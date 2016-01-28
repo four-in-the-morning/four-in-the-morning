@@ -1,42 +1,64 @@
-<%@page language="java" contentType="application/x-msdownload" pageEncoding="utf-8"%>
-<%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
-<%@page import="java.net.URLEncoder" %>
-<%@page import="org.apache.commons.io.output.*" %>
-<%
-    response.reset();
-    response.setContentType("application/x-download");
-    // 你要下载的文件名称，这个名称是帮助你定位服务器文件的
-    String filename = "fuwuqi.txt";
-    application.getRealPath("/home/web/four-in-the-morning/homeworks/" + filename);
-    String filedownload = "/home/web/four-in-the-morning/homeworks/" + filename;
-    // 这里是文件显示名称，这个名称是用户拿到文件的命名，可以友好一些
-    String filedisplay = "youhao.txt";
+<%@ page language="java" import="java.util.*"
+	contentType="text/html; charset=utf-8" %>
+<%@ include file="downloadFilesHelper.jsp" %>
+<% request.setCharacterEncoding("utf-8"); %>
 
-    filedisplay = URLEncoder.encode(filedisplay,"UTF-8");
-    response.addHeader("Content-Disposition","attachment;filename=" + filedisplay);
-    java.io.OutputStream outp = null;
-    java.io.FileInputStream in = null;
-    try{
-        outp = response.getOutputStream();
-        in = new FileInputStream(filedownload);
-
-        byte[] b = new byte[1024];
-        int i = 0;
-
-        while((i = in.read(b)) > 0)
-        {
-        outp.write(b, 0, i);
-        }
-        outp.flush();
-        out.clear();
-        out = pageContext.pushBody();
-    } catch(Exception e){
-        System.out.println("Error!");
-        e.printStackTrace();
-    } finally {
-        if(in != null){
-            in.close();
-            in = null;
-        }
-    }
-%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DownloadFile</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/download.css">
+	</head>
+	<body>
+		<div id="header">
+			<span id="siteName">凌晨四点</span>
+			<span id="jumpHerf"><a href="homepage.jsp">个人主页</a></span>
+		</div>
+		<div id="container">
+			<h2 id="title">下载文件</h2>
+			<%
+				// 服务器路径
+				String filePath = request.getRealPath("/") + "homeworkUpload\\";
+				// 构建路径File
+				File path = new File(filePath);
+				// 正则表达式
+				String homeworkTitle = request.getParameter("homework_title");
+				// String homeworkTitle = "数据库第一周作业";
+				String regex = "^(" + homeworkTitle + ")";
+				// String regex = "^(数据库第一周作业)";
+				// 获取文件List
+				List<File> listFiles = getAllFiles(path, regex);
+				// List转String[]
+				String[] files = listToStringArray(listFiles);
+				// 压缩文件名
+				// String outputFileName = "批量下载" + homeworkTitle + ".zip";
+				String outputFileName = "Homework.zip";
+				// 准备压缩
+				JspFileDownload jspFileDownload = new JspFileDownload();
+				jspFileDownload.setResponse(response);
+				jspFileDownload.setDownType(1); // zip file
+				jspFileDownload.setDisFileName(outputFileName);
+				jspFileDownload.setZipFilePath(filePath);
+				jspFileDownload.setZipDelFlag(false); // 不删除压缩文件
+				jspFileDownload.setZipFileNames(files);
+				jspFileDownload.setDownFileName(outputFileName);
+				// jspFileDownload.setFileContent(homeworkTitle);
+				// jspFileDownload.setFileContentEnd();
+				// 开始压缩并下载
+				int status = jspFileDownload.process();
+				// Debug
+				// out.println("status = " + status + "<br/>");
+				// out.println("regex = " + regex + "<br/>");
+				// for (int i = 0; i < files.length; i++) {
+				// 	out.println(files[i] + "<br/>");
+				// }
+				// out.println(outputFileName + "<br/>");
+				if (status == 4) {
+					out.println("<p>还没有同学上交作业</p>");
+				}
+			%>
+		</div>
+	</body>
+</html>

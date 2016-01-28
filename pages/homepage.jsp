@@ -95,15 +95,15 @@
 				if (isTA == true) {
 					out.println("<h2 id=\"title\">教学助理</h2>");
 					out.println("<div id=\"centerTable\">");
-					out.println("<table class=\"zebra\"><thead><tr><th>课程</th><th>作业</th><th>Deadline</th><th>详情</th></tr></thead>");
-					ArrayList<MySQLHelper.HomeworkPost> assistantList = MySQLHelper.queryDDLHomework(userId);
-					for (MySQLHelper.HomeworkPost assist : assistantList) {
+					out.println("<table class=\"zebra\"><thead><tr><th>课程名</th><th>教学班号</th><th>批改作业</th><th>详情</th></tr></thead>");
+					ArrayList<MySQLHelper.HomeworkToMark> assistantList = MySQLHelper.queryHomeworkToMarkForTA(userId);
+					for (MySQLHelper.HomeworkToMark assist : assistantList) {
 						String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
-						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", assist.course_id, assist.homework_title, assist.ddl, detail));
+						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", assist.course_name, assist.class_id, assist.homework_title, detail));
 						out.println(String.format(
 								"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/><br/>"
-								+ "<p>作业批量下载：<button onclick=\"\">点击</button></p></td></tr>",
-								count));
+								+ "<p>作业批量下载：<button onclick=\"jumpDownload('%s')\">点击</button></p></td></tr>",
+								count, assist.homework_title));
 						count++;
 					}
 					out.println("</table>");
@@ -136,5 +136,10 @@
 				out.print("<script>alert('上传失败');</script>");
 			}
 		%>
+		<script language="javascript" type="text/javascript">
+			function jumpDownload(dir) {
+				window.location.href = "download.jsp?homework_title=" + dir;
+			}
+		</script>
 	</body>
 </html>

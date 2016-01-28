@@ -291,6 +291,36 @@ public static class MySQLHelper {
 		}
 		return courseForTeacher;
 	}
+
+	public static ArrayList<HomeworkToMark> queryHomeworkToMarkForTA(String TAId) {
+		ArrayList<HomeworkToMark> toMarkList = new ArrayList<HomeworkToMark>();
+		try {
+			String sql = String.format("SELECT DISTINCT course_name, class_id, homework_title FROM %s " +
+			"C INNER JOIN %s TP ON C.course_id = TP.course_id " + 
+			"WHERE ta_id = '%s'", courseTable, taPushHomeworkTable, TAId);
+			ResultSet rs = query(sql);
+			while(rs.next()) {
+				toMarkList.add(new HomeworkToMark(
+						rs.getString("course_name"),
+						rs.getString("class_id"),
+						rs.getString("homework_title")));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return toMarkList;
+	}
+
+	public static class HomeworkToMark {
+		public String course_name;
+		public String class_id;
+		public String homework_title;
+		public HomeworkToMark(String _course_name, String _class_id, String _homework_title) {
+			this.course_name = _course_name;
+			this.class_id = _class_id;
+			this.homework_title = _homework_title;
+		}
+	}
 	
 	public static class CourseInfo {
 		public String course_id;
