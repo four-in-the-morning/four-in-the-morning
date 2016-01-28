@@ -71,7 +71,7 @@
 								+ "<input type=\"file\" name=\"file\" size=\"50\" />"
 								+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>"
 								+ "</form>"
-								+ "<p>附件下载：<a href=\"%s\" target=\"_blank\">附件</a></p></td></tr>",
+								+ "<p>附件下载：<a href=\"%s\" target=\"_blank\" download >附件</a></p></td></tr>",
 								count, count,
 								post.homework_title + "_" + post.class_id + "_" + userId,
 								//post.homework_description,
