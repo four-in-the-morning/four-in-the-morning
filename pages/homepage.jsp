@@ -11,9 +11,11 @@
 		login = MySQLHelper.checkPwd(userId, password);
 		if (login) {
 			session.setAttribute("userId", userId);
+			session.setAttribute("Login", "1");
 		} else {
 			out.print("wrong password");
 			response.sendRedirect("index.jsp");
+			session.setAttribute("Login", "0");
 		}
 	} else {
 		userId = (String) session.getAttribute("userId");
@@ -60,16 +62,17 @@
 				if (isTeacher == false) {
 					out.println("<h2 id=\"title\">本周作业</h2>");
 					out.println("<div id=\"centerTable\">");
-					out.println("<table class=\"bordered\"><thead><tr><th>课程</th><th>作业</th><th>Deadline</th><th>详情</th></tr></thead>");
+					out.println("<table class=\"bordered\"><thead><tr><th>课程</th><th>作业</th><th>Deadline</th><th>教学班号</th><th>详情</th></tr></thead>");
 					ArrayList<MySQLHelper.HomeworkPost> postList = MySQLHelper.queryDDLHomework(userId);
 					for (MySQLHelper.HomeworkPost post : postList) {
 						String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
-						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", post.course_id, post.homework_title, post.ddl, detail));
+						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", post.course_id, post.homework_title, post.ddl, post.class_id, detail));
 						out.println(String.format(
 								"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/><br/>"
 								+ "<form action=\"uploadFile2.jsp?detailIndex=%d&fileName=%s\" method=\"post\" enctype=\"multipart/form-data\">"
 								+ "<input type=\"file\" name=\"file\" size=\"50\" />"
-								+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>" + "</form>"
+								+ "<input type=\"submit\" value=\"Submit\" name=\"commit\"/>"
+								+ "</form>"
 								+ "<p>附件下载：<a href=\"%s\" target=\"_blank\">附件</a></p></td></tr>",
 								count, count,
 								post.homework_title + "_" + userId,

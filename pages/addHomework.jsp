@@ -84,7 +84,7 @@
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		post_date = df.format(new Date());
 		MySQLHelper.HomeworkPost homeworkPost = new MySQLHelper.HomeworkPost(course_id, homework_id,
-				homework_title, homework_description, detail_attach_file, post_date, ddl);
+				homework_title, homework_description, detail_attach_file, post_date, ddl, "");
 		if(MySQLHelper.addHomework(homeworkPost)) {
 			hintToUser = "成功发布作业";
 		}

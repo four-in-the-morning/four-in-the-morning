@@ -139,7 +139,8 @@ public static class MySQLHelper {
 					rs.getString("homework_description"), 
 					rs.getString("detail_attach_file"), 
 					rs.getString("post_date"), 
-					rs.getString("ddl")));
+					rs.getString("ddl")
+					rs.getString("class_id")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -343,8 +344,9 @@ public static class MySQLHelper {
 		public String detail_attach_file;
 		public String post_date;
 		public String ddl;
+		public String class_id;
 		public HomeworkPost(String _course_id, String _homework_id, String _homework_title,
-					String _homework_description, String _detail_attach_file, String _post_date, String _ddl) {
+					String _homework_description, String _detail_attach_file, String _post_date, String _ddl, String _class_id) {
 			this.course_id = _course_id;
 			this.homework_id = _homework_id;
 			this.homework_title = _homework_title;
@@ -352,6 +354,7 @@ public static class MySQLHelper {
 			this.detail_attach_file = _detail_attach_file;
 			this.post_date = _post_date;
 			this.ddl = _ddl;
+			this.class_id = _class_id;
 		}
 	}
 

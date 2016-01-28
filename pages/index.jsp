@@ -1,6 +1,14 @@
 <%@ page language="java" import="java.util.*" 
          contentType="text/html; charset=utf-8"%>
 <%request.setCharacterEncoding("utf-8");%>
+<%
+	String login = "1";
+	String hintToUser = "";
+    if(session.getAttribute("Login") == "0") {
+    	login = "0";
+    	hintToUser = "用户名或密码错误";
+    }
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -27,6 +35,7 @@
 							<input type="submit" value="登录" name="commit" />
 							<input type="button" value="修改密码" onclick="jumpUpadtePassword();" />
 						</div>
+						<%=hintToUser%>
 					</form>
 				</div>
 			</div>
