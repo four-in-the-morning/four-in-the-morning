@@ -1,3 +1,9 @@
 #twoBtnStyle {
 	margin-top: 5px;
 }
+
+#hint {
+	text-align: center;
+	color: red;
+	margin-top: 10px;
+}

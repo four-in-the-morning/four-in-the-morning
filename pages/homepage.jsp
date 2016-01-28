@@ -11,11 +11,9 @@
 		login = MySQLHelper.checkPwd(userId, password);
 		if (login) {
 			session.setAttribute("userId", userId);
-			session.setAttribute("Login", "1");
 		} else {
 			out.print("wrong password");
-			response.sendRedirect("index.jsp");
-			session.setAttribute("Login", "0");
+			response.sendRedirect("index.jsp?loginResult=false");
 		}
 	} else {
 		userId = (String) session.getAttribute("userId");
@@ -75,7 +73,7 @@
 								+ "</form>"
 								+ "<p>附件下载：<a href=\"%s\" target=\"_blank\">附件</a></p></td></tr>",
 								count, count,
-								post.homework_title + "_" + userId,
+								post.homework_title + "_" + post.class_id + "_" + userId,
 								//post.homework_description,
 								post.detail_attach_file));
 						count++;
@@ -106,7 +104,7 @@
 						out.println(String.format(
 								"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/><br/>"
 								+ "<p>作业批量下载：<button onclick=\"jumpDownload('%s')\">点击</button></p></td></tr>",
-								count, assist.homework_title));
+								count, assist.homework_title + "_" + assist.class_id));
 						count++;
 					}
 					out.println("</table>");
@@ -131,7 +129,7 @@
 			document.getElementById("showOrHidden<%=detailIndex%>").style.display = "";
 		</script>
 		<%
-			String uplodaResult = request.getParameter("submitsuccess");
+			String uplodaResult = request.getParameter("uploadStatus");
 			if (uplodaResult != null && uplodaResult.equals("true")) {
 				out.print(String.format("<script type=\"text/javascript\">%s;</script>", 
 					"alert('上传成功')"));
@@ -141,7 +139,7 @@
 		%>
 		<script language="javascript" type="text/javascript">
 			function jumpDownload(dir) {
-				window.location.href = "download.jsp?homework_title=" + dir;
+				window.location.href = "download.jsp?homeworkNamePrefix=" + dir;
 			}
 		</script>
 	</body>

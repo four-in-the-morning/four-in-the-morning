@@ -1,13 +1,12 @@
 <%@ page language="java" import="java.util.*" 
-         contentType="text/html; charset=utf-8"%>
+		 contentType="text/html; charset=utf-8"%>
 <%request.setCharacterEncoding("utf-8");%>
 <%
-	String login = "1";
+	String loginResult = request.getParameter("loginResult");
 	String hintToUser = "";
-    if(session.getAttribute("Login") == "0") {
-    	login = "0";
-    	hintToUser = "用户名或密码错误";
-    }
+	if (loginResult != null && loginResult.equals("false")) {
+		hintToUser = "<p id=\"hint\">用户名或密码错误</p>";
+	}
 %>
 <!DOCTYPE html>
 <html>

@@ -17,7 +17,7 @@
 			String fileDir = request.getRealPath("/") + "homeworkUpload\\";
 			//File parent = new File("/home/web/four-in-the-morning/ROOT/four-in-the-morning/homeworkUpload/");
 			File parent = new File(fileDir);
-			
+			String uploadStatus = "true";
 			try {
 				String newFileName = request.getParameter("fileName");
 				String oldFileName = upload.getFileItem().getName();
@@ -25,11 +25,12 @@
 				newFileName += ("." + oldFileNameSplit[oldFileNameSplit.length - 1]);
 				upload.upload(parent, newFileName);
 			} catch (Exception e) {
+				uploadStatus = "false";
 				e.printStackTrace();
 			}
 			
 			String detailIndex = request.getParameter("detailIndex");
-			response.sendRedirect("homepage.jsp?submitsuccess=true&detailIndex=" + detailIndex);
+			response.sendRedirect(String.format("homepage.jsp?uploadStatus=%s&detailIndex=%s", uploadStatus, detailIndex));
 		%>
 	</body>
 </html>

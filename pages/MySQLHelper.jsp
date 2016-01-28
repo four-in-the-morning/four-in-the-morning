@@ -139,7 +139,7 @@ public static class MySQLHelper {
 					rs.getString("homework_description"), 
 					rs.getString("detail_attach_file"), 
 					rs.getString("post_date"), 
-					rs.getString("ddl")
+					rs.getString("ddl"),
 					rs.getString("class_id")));
 			}
 		} catch (Exception e) {

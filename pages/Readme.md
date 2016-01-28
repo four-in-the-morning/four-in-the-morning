@@ -14,9 +14,9 @@ pwd:13354494
 
 #####教师账号：
 
-user:t1
+user:teacher1
 
-pwd:t1
+pwd:teacher1
 
 ###文件位置一览
 

@@ -24,16 +24,16 @@
 				// 构建路径File
 				File path = new File(filePath);
 				// 正则表达式
-				String homeworkTitle = request.getParameter("homework_title");
-				// String homeworkTitle = "数据库第一周作业";
-				String regex = "^(" + homeworkTitle + ")";
+				String homeworkNamePrefix = request.getParameter("homeworkNamePrefix");
+				// String homeworkNamePrefix = "数据库第一周作业";
+				String regex = "^(" + homeworkNamePrefix + ")";
 				// String regex = "^(数据库第一周作业)";
 				// 获取文件List
 				List<File> listFiles = getAllFiles(path, regex);
 				// List转String[]
 				String[] files = listToStringArray(listFiles);
 				// 压缩文件名
-				// String outputFileName = "批量下载" + homeworkTitle + ".zip";
+				// String outputFileName = "批量下载" + homeworkNamePrefix + ".zip";
 				String outputFileName = "Homework.zip";
 				// 准备压缩
 				JspFileDownload jspFileDownload = new JspFileDownload();
@@ -44,7 +44,7 @@
 				jspFileDownload.setZipDelFlag(false); // 不删除压缩文件
 				jspFileDownload.setZipFileNames(files);
 				jspFileDownload.setDownFileName(outputFileName);
-				// jspFileDownload.setFileContent(homeworkTitle);
+				// jspFileDownload.setFileContent(homeworkNamePrefix);
 				// jspFileDownload.setFileContentEnd();
 				// 开始压缩并下载
 				int status = jspFileDownload.process();
