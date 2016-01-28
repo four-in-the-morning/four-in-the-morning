@@ -62,11 +62,11 @@
 				if (isTeacher == false) {
 					out.println("<h2 id=\"title\">本周作业</h2>");
 					out.println("<div id=\"centerTable\">");
-					out.println("<table class=\"bordered\"><thead><tr><th>课程</th><th>作业</th><th>Deadline</th><th>教学班号</th><th>详情</th></tr></thead>");
+					out.println("<table class=\"bordered\"><thead><tr><th>课程</th><th>作业</th><th>Deadline</th><th>详情</th></tr></thead>");
 					ArrayList<MySQLHelper.HomeworkPost> postList = MySQLHelper.queryDDLHomework(userId);
 					for (MySQLHelper.HomeworkPost post : postList) {
 						String detail = String.format("<button onclick=\"onClickChangeShow(this, %d)\">详情</button>", count);
-						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", post.course_id, post.homework_title, post.ddl, post.class_id, detail));
+						out.println(String.format("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>", post.course_id, post.homework_title, post.ddl, detail));
 						out.println(String.format(
 								"<tr id=\"showOrHidden%d\" style=\"display: none\"><td colspan=\"4\">作业描述:<br/><br/>"
 								+ "<form action=\"uploadFile2.jsp?detailIndex=%d&fileName=%s\" method=\"post\" enctype=\"multipart/form-data\">"
